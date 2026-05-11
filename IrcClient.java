@@ -19,9 +19,18 @@ public class IrcClient {
         out.println("NICK MrAllMight");
         out.println("USER AllMight 0 * :AllMight");
 
+        Thread.sleep(5000);
+        out.println("JOIN #test");
+
         String line;
-        while ((line = in.readLine()) != null) {
+        while((line = in.readLine()) != null) {
             System.out.println(line);
+
+            if(line.startsWith("PING")) {
+                String response = line.replace("PING", "PONG");
+                out.println(response);
+                System.out.println("Sent: " + response);
+            }
         }
 
         socket.close();
