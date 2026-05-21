@@ -16,7 +16,7 @@ public class MrAllMight {
     public static void main(String[] args) throws Exception
     {
     String SERVER = "irc.libera.chat";
-    int PORT = 6667;
+    int PORT = 6667;// IRC port unencrypted connection
 
     if (args.length >= 1) {
         SERVER = args[0];
@@ -46,8 +46,9 @@ public class MrAllMight {
         );
 
 
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);// true for auto-flush
 
+        // IRC registration commands
         out.println("NICK " + NICK);
         out.println("USER " + NICK + " 0 * :" + NICK);
 
@@ -194,7 +195,7 @@ if (line.contains(" 433 ")) {
 }
 
     private static void saveToLog(String text) {
-        try (FileWriter writer = new FileWriter("chat_log.txt", true)) {
+        try (FileWriter writer = new FileWriter("chat_log.txt", true)) {// true for append mode
             writer.write("[" + LocalDateTime.now() + "] " + text + "\n");
         } catch (IOException e) {
             System.out.println("[ERROR] Could not write to log file.");
